@@ -1,0 +1,19 @@
+{
+  "name": "imooc-node",
+  "version": "1.0.0",
+  "description": "learn node",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "moment": "^2.15.1",
+    "mongoose": "^4.6.1",
+    "serve-static": "^1.11.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "zaxlct",
+  "license": "ISC"
+}
