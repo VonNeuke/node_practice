@@ -16,6 +16,7 @@ mongoose.connect('mongodb://localhost/imooc')
 app.set('views',path.join(__dirname,'./views/pages')) // 设备视图根目录
 app.set('view engine', 'jade')
 app.use(serveStatic('bower_components'))
+app.locals.moment = require('moment')
 app.use(bodyParser.urlencoded()) // 格式化提交表单的数据
 app.listen(port)
 
