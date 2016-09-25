@@ -37,7 +37,7 @@ MovieSchema.statics = {
       .sort('meta.updateAt')
       .exec(cb)
   },
-  findById: function(cb) { //查询单条数据
+  findById: function(id, cb) { //查询单条数据
     return this
       .findOne({_id: id})
       .exec(cb)
