@@ -21,16 +21,14 @@ app.listen(port)
 
 console.log('imooc started on port' + port)
 
+//index page
 app.get('/', function(req, res) {
 	Movie.fetch(function(err, movies) {
-		if(err) {
-			console.log(err)
-		}
-
-		res.render('index', {
-			title: 'imooc 首页',
-			movies: moives,
-		})
+		if (err) { console.log(err)}
+	  res.render('index', {
+	  	title: 'imooc 首页',
+	  	movies: movies,
+	  })
 	})
 })
 
@@ -39,11 +37,11 @@ app.get('/movie/:id', function(req, res) {
 	var id = req.params.id
 
 	Movie.findById(id, function(err, movie) {
-		res.render('detail', {
-			title: 'imooc' + movie.title,
-			movie: movie,
-		})
-	})
+	  res.render('detail', {
+	  	title: 'imooc ' + movie.title,
+	  	movie: movie,
+ 		})
+  })
 })
 
 //admin page
@@ -58,7 +56,7 @@ app.get('/admin/movie', function(req, res) {
 			poster: '',
 			flash: '',
 			summary: '',
-			language: ''
+			language: '',
 		}
 	})
 })
@@ -67,9 +65,8 @@ app.get('/admin/movie', function(req, res) {
 app.get('/admin/update/:id', function(req, res) {
 	var id = req.params.id
 
-	if(id) {
-		Movie.findById(id, function(err, movie) {
-			if(err) console.log(err)
+	if (id) {
+		Movie.findById(id, function(err, movie){
 			res.render('admin', {
 				title: 'imooc 后台更新页',
 				movie: movie,
@@ -84,24 +81,18 @@ app.post('/admin/movie/new', function(req, res) {
 	var movieObj = req.body.movie
 	var _movie
 
-	if(id !== 'underfined') {
+	if(id !== 'undefined') {  //对其更新
 		Movie.findById(id, function(err, movie) {
-			if(err) {
-				console.log(err)
-			}
+			if (err) {console.log(err)}
 
-			// _movie = Object.assign(movie. movieObj)
-			_movie = _.extend(movie, movieObj)
+			_movie = _.extend(movie, movieObj)   //underscore
 			_movie.save(function(err, movie) {
-				if(err) {
-					console.log(err)
-				}
-
-				res.redirect('/movie/' + movie._id)
+				if (err) {console.log(err)}
+				res.redirect('/movie/' + movie._id)  //重定向
 			})
-		})
-
-	} else {
+    })
+	}
+	else {
 		_movie = new Movie({
 			doctor: movieObj.doctor,
 			title: movieObj.title,
@@ -114,10 +105,7 @@ app.post('/admin/movie/new', function(req, res) {
 		})
 
 		_movie.save(function(err, movie) {
-			if(err) {
-				console.log(err)
-			}
-
+			if (err) {console.log(err)}
 			res.redirect('/movie/' + movie._id)
 		})
 	}
@@ -126,17 +114,13 @@ app.post('/admin/movie/new', function(req, res) {
 //list page
 app.get('/admin/list', function(req, res) {
 	Movie.fetch(function(err, movies) {
-		if(err) {
-			console.log(err)
-		}
+		if (err) {console.log(err)}
 
-		res.render('list', {
-			title: 'imooc 列表页',
-			movies: moives,
-		})
+	  res.render('list', {
+	  	title: 'imooc 列表页',
+	  	movies: movies,
+	  })
 	})
 })
-
-
 
 open('http://127.0.0.1:3000')
