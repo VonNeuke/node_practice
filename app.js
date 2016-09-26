@@ -15,7 +15,7 @@ mongoose.connect('mongodb://localhost/imooc')
 
 app.set('views',path.join(__dirname,'./views/pages')) // 设备视图根目录
 app.set('view engine', 'jade')
-app.use(serveStatic('bower_components'))
+app.use(serveStatic('public'))
 app.locals.moment = require('moment')
 app.use(bodyParser.urlencoded()) // 格式化提交表单的数据
 app.listen(port)
@@ -122,6 +122,20 @@ app.get('/admin/list', function(req, res) {
 	  	movies: movies,
 	  })
 	})
+})
+
+//list delete movie
+app.delete('/admin/list', function(req, res) {
+	var id = req.query.id
+		Movie.remove({_id: id}, function(err, movie) {
+			if (err) {
+				console.log(err)
+			}
+			else {
+				res.json({success: 1})
+			}
+		})
+	}
 })
 
 open('http://127.0.0.1:3000')
