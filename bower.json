@@ -1,0 +1,21 @@
+{
+  "name": "imooc-node",
+  "description": "learn node",
+  "main": "app.js",
+  "authors": [
+    "zaxlct"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/zaxlct/node_practice",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
