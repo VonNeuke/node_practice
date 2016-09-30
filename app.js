@@ -17,7 +17,7 @@ var cookieParser = require('cookie-parser')
 var dbUrl = 'mongodb://localhost/imooc'
 mongoose.connect(dbUrl)
 
-app.set('views', path.join(__dirname, './views/pages')) // 设备视图根目录
+app.set('views', path.join(__dirname, './app/views/pages')) // 设备视图根目录
 app.set('view engine', 'jade')
 app.use(serveStatic('public'))
 app.locals.moment = require('moment')
