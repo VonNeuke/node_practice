@@ -3,6 +3,8 @@ var port = process.env.PORT || 3000 // PROCESS 是全局变量
 var session = require('express-session')
 var mongoose = require('mongoose')
 var mongoStore = require('connect-mongo')(session)
+var morgan = require('morgan')
+// var logger = morgan('dev');
 
 var path = require('path')
 var app = express()
@@ -33,6 +35,13 @@ app.use(session({
   resave: false,
   saveUninitialized: true
 }))
+
+if('development' === app.get('env')) { //env 拿到环境变量
+  app.set('showStackError', true)
+  app.use(morgan(':method :url :status'))
+  app.locals.pretty = true // 显示伟压缩源码
+  mongoose.set('debug', true)
+}
 
 require('./config/routes')(app)
 
