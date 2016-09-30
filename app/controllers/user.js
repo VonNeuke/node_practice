@@ -8,6 +8,20 @@
 var User = require('../models/user')
 
 
+// show signup
+exports.showSignup =  function(req, res) {
+  res.render("signup", {
+    title: '注册页面',
+  });
+}
+
+// show signin
+exports.showSignin =  function(req, res) {
+  res.render("signin", {
+    title: '登录页面',
+  });
+}
+
 // signup --------------
 exports.signup =  function(req, res) {
   var _user = req.body.user
@@ -16,15 +30,17 @@ exports.signup =  function(req, res) {
   // var user = new User(_user)
 
   User.findOne({name: _user.name}, function(err, user) {
-    if(err) console.log(err)
+    if(err){
+      console.log(err)
+    }
     if(user){
-      return res.redirect('/') //如果用户名重复
+      return res.redirect('/signin') //如果用户名重复
     } else {
       var user = new User(_user)
       user.save(function(err, user) {
         if(err) console.log(err)
         // console.log(user)
-        res.redirect('/admin/userlist')
+        res.redirect('/')
       })
     }
   })
@@ -55,7 +71,7 @@ exports.signin = function(req, res) {
     console.log(user)
     if(!user) {
       console.log('用户不存在')
-      return res.redirect('/')
+      return res.redirect('/signup')
     }
 
     user.comparePassword(password, function(err, isMatch) {
@@ -67,6 +83,7 @@ exports.signin = function(req, res) {
         return res.redirect('/')
       } else {
         console.log('密码错误')
+        return res.redirect('/signin')
       }
     })
   })
