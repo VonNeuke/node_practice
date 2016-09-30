@@ -4,6 +4,7 @@ var _ = require('underscore')
 
 var mongoose = require('mongoose')
 var Movie = require('./models/movie')
+var User = require('./models/user')
 
 var path = require('path')
 var app = express()
@@ -153,4 +154,27 @@ app.delete('/admin/list', function(req, res) {
       }
     })
   }
+})
+
+// /user/signup/:userId  var userid = req.params.userid
+// /user/signup/111?userid=112  var userid = req.query.userid
+// 表单提交      var userid = req.body.userid
+
+// /user/signup/111?userid=1112
+// {userid: 113}
+//  req.param('userid') 先拿 111，没找到就拿 1112 ，，没找到就拿 113
+
+
+
+// signup
+app.post('/user/signup', function(req, res) {
+  var _user = req.body.user
+  // req.params('user') 也能拿到 user 信息
+  // console.log(_user)
+  var user = new User(_user)
+
+  user.save(function(err, user) {
+    if(err) console.log(err)
+    console.log(user )
+  })
 })
