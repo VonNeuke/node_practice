@@ -4,8 +4,8 @@ var _ = require('underscore')
 
 module.exports = function(app) {
   // pre handle user
-  app.use(function(req, res, next) {
-    var _user = req.session.user
+  app.use(function(req, res, next) {      
+    var _user = req.session.user || false
     if(_user) {
       app.locals.user = _user
     }
