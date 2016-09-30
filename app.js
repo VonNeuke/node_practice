@@ -72,18 +72,19 @@ app.get('/admin/new', function(req, res) {
 
 // admin update movie
 app.get('/admin/update/:id', function(req, res) {
-    var id = req.params.id;
+  var id = req.params.id;
 
-    if (id) {
-      Movie.findById(id, function(err, movie) {
-        res.render('admin', {
-          title: 'imooc admin update page',
-          movie: movie
-        })
+  if (id) {
+    Movie.findById(id, function(err, movie) {
+      res.render('admin', {
+        title: 'imooc admin update page',
+        movie: movie
       })
-    }
-  })
-  // admin post movie
+    })
+  }
+})
+
+// admin post movie
 app.post('/admin/movie/new', function(req, res) {
   var id = req.body.movie._id
   var movieObj = req.body.movie
@@ -136,7 +137,6 @@ app.get('/admin/list', function(req, res) {
       movies: movies
     });
   })
-
 })
 
 app.delete('/admin/list', function(req, res) {
@@ -175,6 +175,21 @@ app.post('/user/signup', function(req, res) {
 
   user.save(function(err, user) {
     if(err) console.log(err)
-    console.log(user )
+    // console.log(user)
+    res.redirect('/ ')
+  })
+})
+
+// user list page
+app.get('/admin/userlist', function(req, res) {
+  User.fetch(function(err, users) {
+    if (err) {
+      console.log(err)
+    }
+
+    res.render("userlist", {
+      title: 'immoc 用户列表页',
+      users: users
+    });
   })
 })
