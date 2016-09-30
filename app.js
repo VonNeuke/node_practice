@@ -44,6 +44,11 @@ app.get('/', function(req, res) {
   console.log('user in session:')
   console.log(req.session.user)
 
+  var _user = req.session.user
+  if(_user) {
+    app.locals.user = _user
+  }
+
   Movie.fetch(function(err, movies) {
     if (err) {
       console.log(err)
@@ -244,4 +249,11 @@ app.post('/user/signin', function(req, res) {
       }
     })
   })
+})
+
+// logout --------
+app.get('/logout', function(req, res) {
+  delete req.session.user
+  delete app.locals.user 
+  res.redirect('/')
 })
