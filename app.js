@@ -166,7 +166,7 @@ app.delete('/admin/list', function(req, res) {
 
 
 
-// signup
+// signup --------------
 app.post('/user/signup', function(req, res) {
   var _user = req.body.user
   // req.params('user') 也能拿到 user 信息
@@ -196,5 +196,31 @@ app.get('/admin/userlist', function(req, res) {
       title: 'immoc 用户列表页',
       users: users
     });
+  })
+})
+
+// signin ----------------
+app.post('/user/signin', function(req, res) {
+  var _user = req.body.user
+  var name =  _user.name
+  var password = _user.password
+
+  User.findOne({name: name}, function(err, user) {
+    if(err) console.log(errr)
+    console.log(user)
+    if(!user) {
+      console.log('用户不存在')
+      return res.redirect('/')
+    }
+
+    user.comparePassword(password, function(err, isMatch) {
+      if(err) console.log(err)
+      if (isMatch) {
+        console.log('登录成功')
+        return res.redirect('/')
+      } else {
+        console.log('密码错误')
+      }
+    })
   })
 })

@@ -39,7 +39,7 @@ UserSchema.pre('save', function(next) {
   })
 })
 
-//添加静态方法（静态方法不会与数据库交互，虽然它是给模型添加的方法，但都是实例在调用）
+//添加静态方法（模型来调用）
 UserSchema.statics = {
   fetch: function(cb) { // 取出目前数据库所有数据
     return this
@@ -51,6 +51,16 @@ UserSchema.statics = {
     return this
       .findOne({_id: id})
       .exec(cb)
+  }
+}
+
+// 增加实例方法（实例调用）
+UserSchema.methods = {
+  comparePassword: function(_password, cb) {
+    bcrypt.compare(_password, this.password, function(err, isMatch) {
+      if(err) return cb(err)
+      cb(null, isMatch)
+    })
   }
 }
 
