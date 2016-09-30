@@ -173,10 +173,15 @@ app.post('/user/signup', function(req, res) {
   // console.log(_user)
   var user = new User(_user)
 
-  user.save(function(err, user) {
+  User.findOne({name: _user.name}, function(err, user) {
     if(err) console.log(err)
-    // console.log(user)
-    res.redirect('/ ')
+    if(user) return res.redirect('/') //如果用户名重复
+
+    user.save(function(err, user) {
+      if(err) console.log(err)
+      // console.log(user)
+      res.redirect('/admin/userlist')
+    })
   })
 })
 
