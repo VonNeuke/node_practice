@@ -10,32 +10,22 @@ module.exports = function(app) {
     next()
   })
 
-  // index page
+  // Index
   app.get('/', Index.index)
 
-  // signup
+  // User
   app.post('/user/signup', User.signup)
-  // signin
   app.post('/user/signin', User.signin)
-
   app.get('/signin', User.showSignin)
   app.get('/signup', User.showSignup)
-
-  // logout
   app.get('/logout', User.logout)
-  // userlist page
-  app.get('/admin/userlist', User.list)
+  app.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list)
 
-  // detail page
+  //Movie
   app.get('/movie/:id', Movie.detail)
-  // admin new page
-  app.get('/admin/new', Movie.new)
-  // admin update page
-  app.get('/admin/update/:id', Movie.update)
-  // save  movie
-  app.post('/admin/list', Movie.save)
-  // admin list page
-  app.get('/admin/list', Movie.list)
-  // delete movie
-  app.delete('/admin/list', Movie.del)
+  app.get('/admin/movie/new', User.signinRequired, User.adminRequired, Movie.new)
+  app.get('/admin/movie/update/:id', User.signinRequired, User.adminRequired, Movie.update)
+  app.post('/admin/movie', User.signinRequired, User.adminRequired, Movie.save)
+  app.get('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.list)
+  app.delete('/admin/movie/list', User.signinRequired, User.adminRequired, Movie.del)
 }
