@@ -39,7 +39,7 @@ app.use(session({
 if('development' === app.get('env')) { //env 拿到环境变量
   app.set('showStackError', true)
   app.use(morgan(':method :url :status'))
-  app.locals.pretty = true // 显示伟压缩源码
+  app.locals.pretty = true // 显示未压缩源码
   mongoose.set('debug', true)
 }
 
