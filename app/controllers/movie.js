@@ -12,13 +12,18 @@ exports.detail = function(req, res) {
     }
 
     // 查询完电影的数据后再查询评论的数据
-    Comment.find({movie: id}, function(err, comments) {
-      res.render('detail', {
-        title: '电影 详情页',
-        movie: movie,
-        comments: comments
+    // 缺点：每次评论完 detail 页面都要刷新一次，故应该用异步的方法实现
+    Comment
+      .find({movie: id})
+      // mongoose 的 populate 方法不用在页头调用 user model 就可以直接拿到 user里面的name
+      .populate('from', 'name') // 把 user 表里的 name 数据取出来，加到 comments 表里
+      .exec(function(err, comments) { // exec 回调方法
+        res.render('detail', {
+          title: '电影 详情页',
+          movie: movie,
+          comments: comments
+        })
       })
-    })
 
     // res.render("detail", {
     //   title: 'imooc detail',

@@ -2,7 +2,6 @@ var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 var ObjectId = Schema.Types.ObjectId
 
-// mongoose 的 populate 方法不用在页头调用 user model 就可以直接拿到 user里面的name
 var CommentSchema = new Schema({
   movie: {type: ObjectId, ref: 'Movie'},
   from: {type: ObjectId, ref: 'User'},
