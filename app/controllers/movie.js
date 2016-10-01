@@ -17,7 +17,9 @@ exports.detail = function(req, res) {
       .find({movie: id})
       // mongoose 的 populate 方法不用在页头调用 user model 就可以直接拿到 user里面的name
       .populate('from', 'name') // 把 user 表里的 name 数据取出来，加到 comments 表里
+      .populate('reply.from reply.to', 'name')
       .exec(function(err, comments) { // exec 回调方法
+        console.log(comments)
         res.render('detail', {
           title: '电影 详情页',
           movie: movie,

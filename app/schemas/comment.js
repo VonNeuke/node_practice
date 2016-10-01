@@ -4,8 +4,12 @@ var ObjectId = Schema.Types.ObjectId
 
 var CommentSchema = new Schema({
   movie: {type: ObjectId, ref: 'Movie'},
-  from: {type: ObjectId, ref: 'User'},
-  to: {type: ObjectId, ref: 'User'},
+  from: {type: ObjectId, ref: 'User'}, // 谁评论的
+  reply: [{
+    from: {type: ObjectId, ref: 'User'}, //回复给谁
+    to: {type: ObjectId, ref: 'User'}, //回复给谁
+    content: String
+  }],
   content: String,
   meta: { // 更新数据时的时间记录
     createAt: {

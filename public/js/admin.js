@@ -1,6 +1,6 @@
 $(function() {
-	$('.del').click(function(e) {
-		var target = $(e.target)
+	$('.del').click(function() {
+		var target = $(this)
 		var id = target.data('id')
 		var tr = $('.item-id-' + id)
 
