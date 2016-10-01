@@ -33,6 +33,7 @@ exports.signup =  function(req, res) {
     if(err){
       console.log(err)
     }
+
     if(user){
       return res.redirect('/signin') //如果用户名重复
     } else {
