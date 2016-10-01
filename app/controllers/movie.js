@@ -1,4 +1,5 @@
 var Movie = require('../models/movie')
+var Comment = require('../models/comment')
 var _ = require('underscore')
 
 // detail page.
@@ -9,10 +10,20 @@ exports.detail = function(req, res) {
     if (err) {
       console.log(err)
     }
-    res.render("detail", {
-      title: 'imooc detail',
-      movie: movie
+
+    // 查询完电影的数据后再查询评论的数据
+    Comment.find({movie: id}, function(err, comments) {
+      res.render('detail', {
+        title: '电影 详情页',
+        movie: movie,
+        comments: comments
+      })
     })
+
+    // res.render("detail", {
+    //   title: 'imooc detail',
+    //   movie: movie
+    // })
   })
 }
 
