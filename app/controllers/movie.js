@@ -82,13 +82,18 @@ exports.save = function(req, res) {
     })
   } else {
     _movie = new Movie(movieObj)
+    var categoryId = _movie.category
 
     _movie.save(function(err, movie) {
-      if (err) {
-        console.log(err)
-      }
+      if (err) console.log(err)
 
-      res.redirect('/movie/' + movie._id)
+      Category.findById(categoryId, function(err, category) {
+        category.movies.push(_movie._id)
+
+        category.save(function(err, category) {
+          res.redirect('/movie/' + movie._id)
+        })
+      })
     })
   }
 }
