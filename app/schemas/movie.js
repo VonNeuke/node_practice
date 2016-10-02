@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
+var Schema = mongoose.Schema
+var ObjectId = Schema.Types.ObjectId
 
-var MovieSchema = new mongoose.Schema({
+var MovieSchema = new Schema({
   doctor: String,
   title: String,
   language: String,
@@ -8,6 +10,10 @@ var MovieSchema = new mongoose.Schema({
   flash: String,
   poster: String,
   year: Number,
+  category: { //建立双向引用关系，查询一部电影的时候同时能拿到对应的 category
+    type: ObjectId,
+    ref: 'Category'
+  },
   meta: { // 更新数据时的时间记录
     createAt: {
       type: Date,
