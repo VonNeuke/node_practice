@@ -52,9 +52,12 @@ exports.update = function(req, res) {
 
   if (id) {
     Movie.findById(id, function(err, movie) {
-      res.render('admin', {
-        title: 'imooc admin update page',
-        movie: movie
+      Category.find({}, function(err, categories) {
+        res.render('admin', {
+          title: 'imooc 后台更新页',
+          movie: movie,
+          categories: categories
+        })
       })
     })
   }
