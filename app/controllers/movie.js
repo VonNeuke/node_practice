@@ -1,5 +1,6 @@
 var Movie = require('../models/movie')
 var Comment = require('../models/comment')
+var Category = require('../models/category')
 var _ = require('underscore')
 
 // detail page.
@@ -37,9 +38,9 @@ exports.detail = function(req, res) {
 // admin new page.
 exports.new = function(req, res) {
   res.render("admin", {
-    title: 'immoc admin page',
+    title: 'immoc 后台录入页',
     movie: {
-      director: '',
+      doctor: '',
       country: '',
       title: '',
       year: '',
@@ -87,7 +88,7 @@ exports.save = function(req, res) {
     })
   } else {
     _movie = new Movie({
-      director: movieObj.director,
+      doctor: movieObj.doctor,
       title: movieObj.title,
       country: movieObj.country,
       language: movieObj.language,

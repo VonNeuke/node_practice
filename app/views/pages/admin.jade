@@ -8,7 +8,11 @@ block content
 				.form-group
 					label.col-sm-2.control-label(for="inputCategory") 电影分类
 					.col-sm-10
-						input#inputCategory.form-control(type="text",name="movie[category]",value="#{movie.category}")
+						input#inputCategory.form-control(type="text",name="movie[category]",value="#{movie.categoryName}")
+				each cat in catega
+					label.radio-inline
+						input(type="radio", name="movie[category]", value="#{cat._id}")		
+							#{cat.name}
 				.form-group
 					label.col-sm-2.control-label(for="inputTitle") 电影名字
 					.col-sm-10
@@ -16,7 +20,7 @@ block content
 				.form-group
 					label.col-sm-2.control-label(for="inputDoctor") 电影导演	
 					.col-sm-10
-						input#inputDirector.form-control(type="text",name="movie[doctor]",value="#{movie.doctor}")
+						input#inputDoctor.form-control(type="text",name="movie[doctor]",value="#{movie.doctor}")
 				.form-group
 					label.col-sm-2.control-label(for="inputCountry") 国家 
 					.col-sm-10
