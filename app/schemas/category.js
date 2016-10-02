@@ -4,7 +4,7 @@ var ObjectId = Schema.Types.ObjectId
 
 var CategorySchema = new Schema({
   name: String,
-  movies: [{type: ObjectId, ref: 'Moive'}],// 映射数组
+  movies: [{type: ObjectId, ref: 'Movie'}],// 映射数组
   meta: { // 更新数据时的时间记录
     createAt: {
       type: Date,
