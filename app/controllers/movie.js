@@ -37,18 +37,12 @@ exports.detail = function(req, res) {
 
 // admin new page.
 exports.new = function(req, res) {
-  res.render("admin", {
-    title: 'immoc 后台录入页',
-    movie: {
-      doctor: '',
-      country: '',
-      title: '',
-      year: '',
-      poster: '',
-      lang: '',
-      flash: '',
-      summary: ''
-    }
+  Category.find({}, function(err, categories) {
+    res.render("admin", {
+      title: 'immoc 后台录入页',
+      categories: categories,
+      movie: {}
+    })
   })
 }
 
@@ -71,7 +65,7 @@ exports.save = function(req, res) {
   var id = req.body.movie._id
   var movieObj = req.body.movie
   var _movie
-  if (id !== 'undefined') {
+  if (id) {
     Movie.findById(id, function(err, movie) {
       if (err) {
         console.log(err)
@@ -87,16 +81,8 @@ exports.save = function(req, res) {
       })
     })
   } else {
-    _movie = new Movie({
-      doctor: movieObj.doctor,
-      title: movieObj.title,
-      country: movieObj.country,
-      language: movieObj.language,
-      year: movieObj.year,
-      poster: movieObj.poster,
-      summary: movieObj.summary,
-      flash: movieObj.flash,
-    })
+    _movie = new Movie(movieObj)
+
     _movie.save(function(err, movie) {
       if (err) {
         console.log(err)
